@@ -15,7 +15,21 @@ class Board():
     __instance = None
     
     def __new__(self):
+        """
+        create a new Board object with Singleton pattern
+        """
         if self.__instance is None:
-            self.__instance = basc_py4chan.Board("biz")
+            self.__instance = basc_py4chan.Board("yaz")
         return self.__instance
-    
+
+    @staticmethod 
+    def initialize():
+        """
+        initialize new Board object with specific board name
+        in our case we want to initialize Business & Finance (biz)
+        
+        other board examples [biz, o, p, v, vg, vm, vmg]
+        """
+        board: Board = Board()
+        board.__init__("biz")
+        return board 

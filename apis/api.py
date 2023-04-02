@@ -1,9 +1,10 @@
 import requests as r
+from config import get_secret
 
-def httpThreads():
-    # for future automation we can simple change `biz` to any Board name
-    # response stored in [sample.json] file
-    res = r.get("https://a.4cdn.org/biz/threads.json")
-
-
-
+token, id = get_secret()
+def send(message: str):
+    try:
+        full: str = f'https://api.telegram.org/bot{token}/sendMessage?chat_id={id}&text={message}'
+        r.get(full)
+    except Exception as e:
+        print(e)

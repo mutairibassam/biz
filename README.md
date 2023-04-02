@@ -1,29 +1,33 @@
 ## BizBot
 Telegram bot to send [4channel](https://boards.4channel.org/biz/) website deleted thread ids, so you will never miss an opportunity.
 
-### run using docker
+### Run using docker
 ```bash
 docker pull mutairibassam/biz:v0.2-alpha
 docker tag mutairibassam/biz:v0.1-alpha biz
 docker run biz
 ```
 
-### run using docker locally
+### Run using docker locally
 ```bash
+git clone https://github.com/mutairibassam/biz.git
+cd biz
 docker build -t biz .
 docker run biz
 ```
 
-### run using python
+### Run using python
 
 ```bash
+git clone https://github.com/mutairibassam/biz.git
+cd biz
 python app.py
 ```
 
-### add your secrets
+### Add your secrets
 You should add your secrets regardless of any method you followed.
 
-create a new file with `config.yml` name in the root of the project. Paste the below snippet and replace `xxx` with a valid values.
+Create a new file with `config.yml` name in the root of the project. Paste the below snippet and replace `xxx` with valid values.
 
 ```yml
 telegram:
@@ -31,4 +35,4 @@ telegram:
   chat_id: -xxxxxxxx
 ```
 
-*Note: there is no output, the deleted ids will be sent to your telegram groups automatically.
+*Note: there is no output, the deleted ids will be sent to your telegram groups that associated with the chat id automatically.

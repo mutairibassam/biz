@@ -4,7 +4,7 @@ Telegram bot to send [4channel](https://boards.4channel.org/biz/) website delete
 ### run using docker
 ```bash
 docker pull mutairibassam/biz:v0.2-alpha
-docker pull mutairibassam/biz:v0.2-alpha biz
+docker tag mutairibassam/biz:v0.1-alpha biz
 docker run biz
 ```
 

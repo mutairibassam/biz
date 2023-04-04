@@ -1,6 +1,7 @@
 ## BizBot
 Telegram bot to send [4channel](https://boards.4channel.org/biz/) website deleted thread ids, so you will never miss an opportunity.
 
+We are hosting the bot in a telegram bot, so we don't need actually to host it or run it locally. You are welcome to join [our telegram group](https://t.me/+2bD0oJy7brEyNjBk).
 ### Run using docker
 ```bash
 docker pull mutairibassam/biz:v0.2-alpha

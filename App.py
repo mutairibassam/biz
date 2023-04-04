@@ -1,7 +1,7 @@
-import requests as req
 from board import Board
 import time
-from apis.api import send
+from apis.api import send, deleted
+from config import append, write
     
 def compare(new: list, prev: list) -> list:
     """
@@ -16,39 +16,47 @@ def compare(new: list, prev: list) -> list:
     difference: set = set(prev) - set(new)
     return list(difference)
 
-
-def deleted(ids: list) -> list:
-    '''
-    check if a specific id is deleted or archived using below url
-    https://boards.4channel.org/biz/thread/{thread_id}
-
-    if thread has been deleted the response status code will be 404
-
-    if it's been deleted, it will be stored in `d` list to be returned
-
-    '''
-    d: list = []
-    url: str = 'https://boards.4channel.org/biz/thread/'
-    d = [i for i in ids if req.get(url + str(i)).status_code == 404]
-    return d
-
 def boardApp() -> None:
     board: Board = Board.initialize()
     new_ids: list = []
     prev_ids: list = []
     while True:
+        time.sleep(10)
+        write(" ")
         try:
-            new_ids: list = board.get_all_thread_ids()  
+            o: list = board.get_all_threads()
+            # new_ids: list = board.get_all_thread_ids()
         except Exception as e:
             # e -> to be logged
+            print(e)
             continue 
         
+
+        # we need to store subject, thumbnail, and id
+        for i,_ in enumerate(o):
+            Topic(o[i].id,o[i].topic.subject,o[i].topic.thumbnail_url)
+            new_ids.append(o[i].id)
+        
+
+        # we need to know all missing ids
         diff: list = compare(new_ids, prev_ids)
         prev_ids = new_ids
-
         result: list = deleted(diff)
-        if len(result) > 0: send(result)
-        time.sleep(10)
+        print(result)
+        # # we need to extract missing ids metadata from local storage
+        with open('./storage.txt', 'r') as file:
+            for line in file:
+                id,sub,img = line.split("*")
+                if int(id) in result:
+                    print(f'Missing id: {id}\nSubject: {sub}\n{img}')
+        # we need to send id metadata to telegram group
+                    send(id, sub, img)
+        new_ids = []
+
+class Topic:
+    def __init__(self, thread_id, subject, image_url):
+        thread = f'{thread_id}*{subject}*{image_url}\n'
+        append(thread)
 
 
 if __name__ == '__main__':

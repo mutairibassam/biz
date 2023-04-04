@@ -31,3 +31,18 @@ def get_secret() -> dict:
             return full_load(stream)['telegram'].values()
         except YAMLError as exception:
             raise exception
+        
+
+def write(content):
+    with open("./storage.txt", "w") as file:
+        file.write(content)
+        
+def append(content):
+    with open("./storage.txt", "a") as file:
+        file.write(content)
+
+def read():
+    c = ""
+    with open("./storage.txt", "r") as file:
+        c = file.read()
+    return c

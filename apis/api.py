@@ -12,9 +12,9 @@ def send_deprecated(message: str):
     except Exception as e:
         print(e)
 
-def send(id, sub, img):
+def send(id, sub, img, comment):
     archiver = f'https://archived.moe/biz/thread/{id}'
-    message = f'Missing id: {id}\nSubject: {sub}\nArchiver: {archiver}\n{img}'
+    message = f'Missing id: {id}\nSubject: {sub}\nComment: {comment}\n{img}\nArchiver: {archiver}'
     try:
         full: str = f'https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={message}'
         r.get(full, timeout=10)

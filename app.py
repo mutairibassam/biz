@@ -34,11 +34,12 @@ def boardApp() -> None:
 
         # we need to store subject, thumbnail, and id
         for i,_ in enumerate(o):
+            cmt = re.sub(r'[^a-zA-Z0-9\s]+', '', o[i].topic.comment).replace("\n", "")
             Topic(
                 o[i].id,
                 o[i].topic.subject,
                 o[i].topic.thumbnail_url,
-                o[i].topic.text_comment
+                cmt
             )
             new_ids.append(o[i].id)
         
@@ -51,7 +52,7 @@ def boardApp() -> None:
         # # we need to extract missing ids metadata from local storage
         with open('./storage.txt', 'r') as file:
             for line in file:
-                id,sub,img,comment = line.split("*")
+                id,sub,img,comment = line.split("~")
                 if int(id) in result:
                     print(f'Missing id: {id}\nSubject: {sub}\n{img}\n{comment}')
         # we need to send id metadata to telegram group
@@ -60,7 +61,7 @@ def boardApp() -> None:
 
 class Topic:
     def __init__(self, thread_id, subject, image_url, comment):
-        thread = f'{thread_id}*{subject}*{image_url}*{comment}\n'
+        thread = f'{thread_id}~{subject}~{image_url}~{comment}\n'
         append(thread)
 
 

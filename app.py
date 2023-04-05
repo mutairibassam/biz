@@ -1,5 +1,6 @@
 from board import Board
 import time
+import re
 from apis.api import send, deleted
 from config import append, write
     
@@ -34,7 +35,7 @@ def boardApp() -> None:
 
         # we need to store subject, thumbnail, and id
         for i,_ in enumerate(o):
-            cmt = re.sub(r'[^a-zA-Z0-9\s]+', '', o[i].topic.comment).replace("\n", "")
+            cmt = re.sub(r'[^a-zA-Z0-9\s]+', '', o[i].topic.text_comment).replace("\n", "")
             Topic(
                 o[i].id,
                 o[i].topic.subject,

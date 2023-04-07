@@ -1,3 +1,4 @@
 /venv
 sample/
 config.yml
+*.txt

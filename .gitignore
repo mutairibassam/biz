@@ -1,3 +1,5 @@
 /venv
 sample/
 config.yml
+*.txt
+.vscode

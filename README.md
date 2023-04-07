@@ -1,5 +1,13 @@
 ## BizBot
-Telegram bot to send [4channel](https://boards.4channel.org/biz/) website deleted thread ids, so you will never miss an opportunity.
+Telegram bot to send [4channel](https://boards.4channel.org/biz/) website deleted threads, so you will never be behind.
+
+We are currently hosting the bot, so we don't need actually to host it or run it locally unless you have a reason. You are welcome to join [our telegram group](https://t.me/+2bD0oJy7brEyNjBk).
+
+Bot message example:
+- Missing id: 54472365
+- Subject: getting sued
+- Archiver: https://archived.moe/biz/thread/54472365
+- http://i.4cdn.org/biz/1680681193997391s.jpg
 
 ### Run using docker
 ```bash

@@ -1,3 +1,4 @@
+"""docs"""
 import basc_py4chan
 
 class Board():
@@ -13,16 +14,16 @@ class Board():
         threads_per_page (int): How many threads there are on each page.
     """
     __instance = None
-    
-    def __new__(self):
+ 
+    def __new__(cls):
         """
         create a new Board object with Singleton pattern
         """
-        if self.__instance is None:
-            self.__instance = basc_py4chan.Board("yaz")
-        return self.__instance
+        if cls.__instance is None:
+            cls.__instance = basc_py4chan.Board("yaz")
+        return cls.__instance
 
-    @staticmethod 
+    @staticmethod
     def initialize():
         """
         initialize new Board object with specific board name
@@ -32,4 +33,4 @@ class Board():
         """
         board: Board = Board()
         board.__init__("biz")
-        return board 
+        return board

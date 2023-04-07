@@ -1,3 +1,4 @@
+"""docs"""
 import basc_py4chan
 
 class Board():
@@ -13,7 +14,7 @@ class Board():
         threads_per_page (int): How many threads there are on each page.
     """
     __instance = None
-    
+ 
     def __new__(cls):
         """
         create a new Board object with Singleton pattern

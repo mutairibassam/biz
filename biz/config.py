@@ -1,4 +1,4 @@
-
+"""docs"""
 from yaml import full_load, YAMLError
 
 def get_secret() -> dict:
@@ -31,18 +31,35 @@ def get_secret() -> dict:
             return full_load(stream)['telegram'].values()
         except YAMLError as exception:
             raise exception
-        
+
+file_path: str = "./storage.txt"
 
 def write(content):
-    with open("./storage.txt", "w") as file:
+    """ replace all existing file data will the new data """
+    with open(file_path, "w", encoding="utf-8") as file:
         file.write(content)
-        
+
 def append(content):
-    with open("./storage.txt", "a") as file:
+    """ add more the existing data """
+    with open(file_path, "a",encoding="utf-8") as file:
         file.write(content)
 
 def read():
-    c = ""
-    with open("./storage.txt", "r") as file:
-        c = file.read()
-    return c
+    """ read current file data """
+    content = ""
+    with open(file_path, "r",encoding="utf-8") as file:
+        content = file.read()
+    return content
+
+def compare(new: list, prev: list) -> list:
+    """
+    @current: the first list which will be the origianl source of the ids.
+    @new: the second list which will be compared against to get missing ids.
+
+    @difference: the finalized ids after getting the difference between
+                original and prev lists.
+
+    """
+    if len(prev) > 0:
+        return prev - new
+    return []

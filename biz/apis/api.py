@@ -48,7 +48,7 @@ def send(
     """
     archiver = f'https://archived.moe/biz/thread/{thread_id}'
 
-    message = f"Missing id: {thread_id}\nSubject: {subject}\nComment: {thread_comment}\n{image_url}\nArchiver: {archiver}"
+    message = f"Missing id: {thread_id}\nSubject: {subject}\nComment: {thread_comment}\n{image_url}\nArchiver: {archiver}\nv1.0"
     try:
         telegram_url: str = f'https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={message}'
         r.get(telegram_url,timeout=5)
@@ -98,8 +98,13 @@ def iterate(deleted_ids: list):
 
     """
     local_data = read()
-    for line in local_data:
-        thread_id, subject, image_url, comment = line.split("~")
-        if int(thread_id) in deleted_ids:
-            print(f'Missing id: {thread_id}\nSubject: {subject}\n{image_url}\n{comment}')
-            send(thread_id, subject, image_url, comment)
+    for eachline in local_data:
+        try:
+            thread_id, subject, image_url, comment = eachline.split("~")
+            if int(thread_id) in deleted_ids:
+                print(f'Missing id: {thread_id}')
+                send(thread_id, subject, image_url, comment)
+        except ValueError as err:
+            print(err)
+            continue
+        

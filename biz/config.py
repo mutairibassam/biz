@@ -45,11 +45,10 @@ def append(content):
         file.write(content)
 
 def read():
-    """ read current file data """
-    content = ""
+    """ read current file data and return each line """
     with open(file_path, "r",encoding="utf-8") as file:
-        content = file.read()
-    return content
+        lines = file.readlines()
+    return lines
 
 def compare(new: list, prev: list) -> list:
     """
@@ -61,5 +60,6 @@ def compare(new: list, prev: list) -> list:
 
     """
     if len(prev) > 0:
-        return prev - new
+        difference: set = set(prev) - set(new)
+        return list(difference)
     return []

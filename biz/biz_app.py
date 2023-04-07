@@ -13,8 +13,7 @@ def biz_app() -> None:
     while True:
         setup()
         threads = get_threads(board=board)
-        threads_id = prepare(threads)
-        new_ids.append(threads_id)
+        new_ids = prepare(threads)
 
         diff: list = compare(new_ids, prev_ids)
         prev_ids = new_ids
@@ -24,5 +23,5 @@ def biz_app() -> None:
 
 def setup():
     """docs"""
-    time.sleep(100)
-    write(" ")
+    time.sleep(10)
+    write("")

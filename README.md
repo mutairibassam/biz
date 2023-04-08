@@ -4,10 +4,11 @@ Telegram bot to send [4channel](https://boards.4channel.org/biz/) website delete
 We are currently hosting the bot, so we don't need actually to host it or run it locally unless you have a reason. You are welcome to join [our telegram group](https://t.me/+2bD0oJy7brEyNjBk).
 
 Bot message example:
-- Missing id: 54472365
-- Subject: getting sued
-- Archiver: https://archived.moe/biz/thread/54472365
-- http://i.4cdn.org/biz/1680681193997391s.jpg
+- Missing id: 54489371
+- Subject: Dextools
+- Comment: So which Dextools gems are we slurping today
+- http://i.4cdn.org/biz/1680787971457336s.jpg
+- Archiver: https://archived.moe/biz/thread/54489371
 
 ### Run using docker
 ```bash

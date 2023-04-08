@@ -18,7 +18,8 @@ def biz_app() -> None:
         diff: list = compare(new_ids, prev_ids)
         prev_ids = new_ids
         deleted_ids: list = deleted(diff)
-        iterate(deleted_ids)
+        if(len(deleted_ids) > 0):
+            iterate(deleted_ids)
         new_ids = []
 
 def setup():

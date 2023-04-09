@@ -66,9 +66,17 @@ def deleted(ids: list) -> list:
 
     """
     url: str = 'https://boards.4channel.org/biz/thread/'
+    # deleted_ids: list = [i for i in ids if r.get(url + str(i), timeout=5).status_code == 404]
 
-    deleted_ids: list = [i for i in ids if r.get(url + str(i), timeout=5).status_code == 404]
-    return deleted_ids
+    not_found_ids = []
+    for i in ids:
+        try:
+            response = r.get(url + str(i), timeout=10)
+            if response.status_code == 404:
+                not_found_ids.append(i)
+        except HTTPError as err:
+            print(err)
+    return not_found_ids
 
 def get_threads(board: Board) -> list[Board]:
     """ return all threads with its data """

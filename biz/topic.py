@@ -41,7 +41,7 @@ def prepare(threads):
         thread_ids.append(thread_id)
 
         topic = thread.topic
-        clean_comment = re.sub(r'[^a-zA-Z0-9\s]+', '', topic.text_comment).replace("\n", "")
+        clean_comment = re.sub(r'[^a-zA-Z0-9\s]+', '', topic.text_comment).replace("\n", "").replace("~","")
 
         Topic(thread_id, topic.subject, topic.thumbnail_url, clean_comment)
     return thread_ids

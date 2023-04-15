@@ -40,8 +40,29 @@ def prepare(threads):
         thread_id = thread.id
         thread_ids.append(thread_id)
 
+        # topic = thread.topic
+        # clean_comment = re.sub(r'[^a-zA-Z0-9\s]+', '', topic.text_comment).replace("\n", "").replace("~","")
+        # clean_title = str(topic.subject).replace("~","")
+
+        # Topic(thread_id, clean_title, topic.thumbnail_url, clean_comment)
+    return thread_ids
+
+def dump(threads):
+    """
+    threads are all the threads that we receive from Board API to be stored
+    locally for future reference.
+
+    since comment are not clean we need to remove special characters including
+    the new line character \n as this will make it very difficult to diff among
+    threads.
+    
+    Now we diff among threads if there is a new line.
+    """
+    for thread in threads:
+        thread_id = thread.id
+
         topic = thread.topic
         clean_comment = re.sub(r'[^a-zA-Z0-9\s]+', '', topic.text_comment).replace("\n", "").replace("~","")
+        clean_title = str(topic.subject).replace("~","")
 
-        Topic(thread_id, topic.subject, topic.thumbnail_url, clean_comment)
-    return thread_ids
+        Topic(thread_id, clean_title, topic.thumbnail_url, clean_comment)

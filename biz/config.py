@@ -1,6 +1,8 @@
 """docs"""
 from yaml import full_load, YAMLError
 
+file_path: str = "./storage.txt"
+
 def get_secret() -> dict:
     """ 
     get telegram secret keys from yml file 
@@ -32,19 +34,17 @@ def get_secret() -> dict:
         except YAMLError as exception:
             raise exception
 
-file_path: str = "./storage.txt"
-
-def write(content):
+def write(content) -> None:
     """ replace all existing file data will the new data """
     with open(file_path, "w", encoding="utf-8") as file:
         file.write(content)
 
-def append(content):
+def append(content) -> None:
     """ add more the existing data """
     with open(file_path, "a",encoding="utf-8") as file:
         file.write(content)
 
-def read():
+def read() -> list:
     """ read current file data and return each line """
     with open(file_path, "r",encoding="utf-8") as file:
         lines = file.readlines()

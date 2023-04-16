@@ -9,7 +9,6 @@ token, chat_id = get_secret()
 def send(
         thread_id: str,
         subject: str,
-        image_url: str,
         thread_comment: str
     ) -> None:
 
@@ -46,9 +45,9 @@ def send(
     /// To send the data you just need to do simple GET request
 
     """
-    archiver = f'https://archived.moe/biz/thread/{thread_id}'
+    archiver: str = f'https://archived.moe/biz/thread/{thread_id}'
 
-    message = f"Missing id: {thread_id}\nSubject: {subject}\nComment: {thread_comment}\n{image_url}\nArchiver: {archiver}\nv1.1"
+    message: str = f"Missing id: {thread_id}\nSubject: {subject}\nComment: {thread_comment}\nArchiver: {archiver}\nv1.1"
     try:
         telegram_url: str = f'https://api.telegram.org/bot{token}/sendMessage?chat_id={chat_id}&text={message}'
         r.get(telegram_url,timeout=5)
@@ -66,8 +65,12 @@ def deleted(ids: list) -> list:
 
     """
     url: str = 'https://boards.4channel.org/biz/thread/'
-    # deleted_ids: list = [i for i in ids if r.get(url + str(i), timeout=5).status_code == 404]
 
+    # list comprehension logic is commented because we don't use list comprehension for readability purposes
+    # and since the array size will always be the same length we compromise
+    # code readability over performance.
+
+    # deleted_ids: list = [i for i in ids if r.get(url + str(i), timeout=5).status_code == 404]
     not_found_ids: list = []
     for i in ids:
         try:
@@ -79,7 +82,7 @@ def deleted(ids: list) -> list:
             continue
     return not_found_ids
 
-def get_threads(board: Board) -> list[Board]:
+def get_threads(board: Board) -> list:
     """ return all threads with its data """
     try:
         threads: list = board.get_all_threads()
@@ -88,7 +91,7 @@ def get_threads(board: Board) -> list[Board]:
         print(err)
         return err
 
-def iterate(deleted_ids: list):
+def iterate(deleted_ids: list) -> None:
     """
     deleted_ids  ->  confirmed deleted ids
 
@@ -110,10 +113,12 @@ def iterate(deleted_ids: list):
     local_data = read()
     for eachline in local_data:
         try:
-            thread_id, subject, image_url, *comment = eachline.split("~")
+            # _ variable is thread image url but it's been removed
+            # since it might have inappropriate images
+            thread_id, subject, _, *comment = eachline.split("~")
             if int(thread_id) in deleted_ids:
                 print(f'thread to be sent: {thread_id}')
-                send(thread_id, subject, image_url, comment)
+                send(thread_id, subject, comment)
         except ValueError as err:
             print(eachline)
             print(err)

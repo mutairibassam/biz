@@ -12,9 +12,9 @@ def biz_app() -> None:
     prev_ids: list = []
     while True:
         time.sleep(15)
-        threads = get_threads(board=board)
+        threads: list = get_threads(board=board)
         # we shouldn't update the storage.txt until we compare.
-        new_ids = prepare(threads)
+        new_ids: list = prepare(threads)
 
         diff: list = compare(new_ids, prev_ids)
         prev_ids = new_ids

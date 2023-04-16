@@ -30,7 +30,7 @@ docker run biz
 ```bash
 git clone https://github.com/mutairibassam/biz.git
 cd biz
-python app.py
+python3 -m biz
 ```
 
 ### Add your secrets

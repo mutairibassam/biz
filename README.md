@@ -45,3 +45,10 @@ telegram:
 ```
 
 *Note: there is no output, the deleted ids will be sent to your telegram groups that associated with the chat id automatically.
+
+### Run test
+```bash
+pytest -v tests/ # run only tests
+coverage run -m pytest -v tests/ # run tests with code coverage
+coverage html # server coverage with html layout
+```

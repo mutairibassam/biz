@@ -17,7 +17,7 @@ def send(
     the telegram group. Send expects 4 different argumnts
     thread id:          thread id
     subject:            thread subject
-    image_url:          thread image url
+    image_url:          thread image url [removed]
     thread_comment:     thread text comment 
 
     return              None
@@ -34,13 +34,15 @@ def send(
             Missing id: 54472365
             Subject: getting sued
             Archiver: https://archived.moe/biz/thread/54472365
-            http://i.4cdn.org/biz/1680681193997391s.jpg
+            http://i.4cdn.org/biz/1680681193997391s.jpg [removed]
+            v1.1
 
     /// telegram_url requires 1 url path and 2 query params
     /// 
     /// [token]     secert key that refer to your bot, you can get it from BotFather
     /// [chat_id]   chat id that you want to send to (can be group or private)
     /// [message]   the details that you want to send.
+    /// [version]   app version 
 
     /// To send the data you just need to do simple GET request
 
@@ -63,14 +65,17 @@ def deleted(ids: list) -> list:
 
     if it's been deleted, it will be stored in `deleted_ids` list to be returned
 
+    [note]
+        list comprehension logic is commented because we don't use list comprehension for 
+        readability purposes and since the array size will always be the same length 
+        we compromise code readability over performance.
+
+        ```snippet
+        deleted_ids: list = [i for i in ids if r.get(url + str(i), timeout=5).status_code == 404]
+        ```
     """
     url: str = 'https://boards.4channel.org/biz/thread/'
 
-    # list comprehension logic is commented because we don't use list comprehension for readability purposes
-    # and since the array size will always be the same length we compromise
-    # code readability over performance.
-
-    # deleted_ids: list = [i for i in ids if r.get(url + str(i), timeout=5).status_code == 404]
     not_found_ids: list = []
     for i in ids:
         try:
@@ -89,7 +94,6 @@ def get_threads(board: Board) -> list:
         return threads
     except HTTPError as err:
         print(err)
-        return err
 
 def iterate(deleted_ids: list) -> None:
     """
@@ -101,7 +105,7 @@ def iterate(deleted_ids: list) -> None:
     Each line will be unpacked to 4 values using `~` delimiter
         - thread id
         - thread subject
-        - thread image url
+        - thread image url [removed]
         - thread comment
 
     if the thread id exist in thread deleted ids list, this means this is our target
@@ -109,7 +113,6 @@ def iterate(deleted_ids: list) -> None:
     function.
 
     """
-    print(f"deleted ids {deleted_ids}")
     local_data = read()
     for eachline in local_data:
         try:
@@ -120,7 +123,6 @@ def iterate(deleted_ids: list) -> None:
                 print(f'thread to be sent: {thread_id}')
                 send(thread_id, subject, comment)
         except ValueError as err:
-            print(eachline)
             print(err)
             continue
         

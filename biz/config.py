@@ -40,7 +40,7 @@ def write(content) -> None:
         file.write(content)
 
 def append(content) -> None:
-    """ add more the existing data """
+    """ add more to the existing data """
     with open(file_path, "a",encoding="utf-8") as file:
         file.write(content)
 

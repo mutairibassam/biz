@@ -44,7 +44,7 @@ telegram:
   chat_id: -xxxxxxxx
 ```
 
-*Note: there is no output, the deleted ids will be sent to your telegram groups that associated with the chat id automatically.
+*Note: there is no output, the deleted ids will be sent to your telegram groups that associated with the chat id automatically.*
 
 ### Run test
 ```bash
